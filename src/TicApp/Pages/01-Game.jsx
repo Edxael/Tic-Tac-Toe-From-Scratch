@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
 import Logo from '../Img/logo.png'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import '../Css/game.css'
+
+// Components and Docs location:  https://reactstrap.github.io/  
 class Game extends Component {
   state = {
     game: [['', '', ''], ['', '', ''], ['', '', '']],
     currentChar: 'X',
-    gameResults: {}
+    gameResults: {},
+    modalTex: '',
+    modal: false
+  }
+
+  toggle() {
+    this.setState({ modal: !this.state.modal })
   }
 
   check4Win = (game) => {
@@ -33,9 +42,11 @@ class Game extends Component {
     console.log(`Row: ${row}, Box: ${box}`)
 
     if (this.state.gameResults.win) {
-      alert(`Game-over Winer is: "${(this.state.currentChar === 'X') ? 'O' : 'X'}"  Click new game to play again.`)
+      // alert(`Game-over Winer is: "${(this.state.currentChar === 'X') ? 'O' : 'X'}"  Click new game to play again.`)
+      this.setState({ modalTex: `Game-over Winer is: "${(this.state.currentChar === 'X') ? 'O' : 'X'}"  Click new game to play again.`, modal: true })
     } else if (this.state.game[row][box] !== '') {
-      alert('This block is taken please chose other')
+      // alert('This block is taken please chose other')
+      this.setState({ modalTex: 'This block is taken please chose other', modal: true })
     } else {
       let move = this.state.game
       move[row][box] = this.state.currentChar
@@ -46,7 +57,8 @@ class Game extends Component {
             if (gameResult.win) {
               this.setState({ gameResults: gameResult })
               setTimeout(() => {
-                alert(`Game-over Winer is: "${(this.state.currentChar === 'X') ? 'O' : 'X'}"  Click new game to play again.`)
+                // alert(`Game-over Winer is: "${(this.state.currentChar === 'X') ? 'O' : 'X'}"  Click new game to play again.`)
+                this.setState({ modalTex: `Game-over Winer is: "${(this.state.currentChar === 'X') ? 'O' : 'X'}"  Click new game to play again.`, modal: true })
               }, 100)
             }
           })
@@ -54,13 +66,13 @@ class Game extends Component {
     }
   }
 
-  newGame = () => {
-    this.setState({
-      game: [['', '', ''], ['', '', ''], ['', '', '']],
-      currentChar: 'X',
-      gameResults: {}
-    })
-  }
+  // newGame = () => {
+  //   this.setState({
+  //     game: [['', '', ''], ['', '', ''], ['', '', '']],
+  //     currentChar: 'X',
+  //     gameResults: {}
+  //   })
+  // }
 
   render() {
     return (
@@ -68,10 +80,9 @@ class Game extends Component {
 
         <div id="center-game-container">
 
-          
-          
+
           <img id="logo-img" src={require(`../Img/logo.png`)} alt="" />
-          <br/>
+          <br />
           <img id="App-logo" src={require(`../Img/react-hexagon.png`)} alt="logo" />
 
           <div id="game-grid-box">
@@ -93,8 +104,23 @@ class Game extends Component {
           <br /><br />
 
           <button id="btn-new-game" onClick={this.newGame}>New Game</button>
-          <hr/>
+          <hr />
           <p>By: Edmundo Rubio</p>
+
+          <div>
+            <Button color="danger" onClick={() => { this.setState({ modal: !this.state.modal }) }}>{'Open Modal'}</Button>
+            <Modal isOpen={this.state.modal} toggle={() => { this.setState({ modal: !this.state.modal }) }} className={'one'}>
+              <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+              <ModalBody>
+                {this.state.modalTex}
+            </ModalBody>
+              <ModalFooter>
+                <Button color="primary" onClick={() => { this.setState({ modal: !this.state.modal }) }}>Do Something</Button>{' '}
+                <Button color="secondary" onClick={() => { this.setState({ modal: !this.state.modal }) }}>Cancel</Button>
+              </ModalFooter>
+            </Modal>
+          </div>
+
         </div>
 
       </div>
