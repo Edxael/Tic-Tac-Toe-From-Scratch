@@ -21,7 +21,6 @@ class Game extends Component {
     console.log('Checking 4 Win: ', game)
     return new Promise((resolve, reject) => {
       for (let idx = 0; idx <= game.length - 1; idx++) {
-
         // ==============================================================================
         if (game[idx].every((x) => { return x === game[idx][0] && (x !== '') })) {                     // Check for Horizontal wins
           resolve({ win: true, player: game[idx][0], type: 'Horizontal' })
@@ -37,6 +36,7 @@ class Game extends Component {
       resolve({ win: false, player: '', type: 'None' })                 // No Win
     })
   }
+
 
   fillBox = (row, box) => {
     console.log(`Row: ${row}, Box: ${box}`)
@@ -66,14 +66,16 @@ class Game extends Component {
     }
   }
 
-  // newGame = () => {
-  //   this.setState({
-  //     game: [['', '', ''], ['', '', ''], ['', '', '']],
-  //     currentChar: 'X',
-  //     gameResults: {}
-  //   })
-  // }
 
+  newGame = () => {
+    this.setState({
+      game: [['', '', ''], ['', '', ''], ['', '', '']],
+      currentChar: 'X',
+      gameResults: {}
+    })
+  }
+
+  
   render() {
     return (
       <div id="main-game-container">
@@ -108,15 +110,15 @@ class Game extends Component {
           <p>By: Edmundo Rubio</p>
 
           <div>
-            <Button color="danger" onClick={() => { this.setState({ modal: !this.state.modal }) }}>{'Open Modal'}</Button>
+            {/* <Button color="danger" onClick={() => { this.setState({ modal: !this.state.modal  }) }}>{'Open Modal'}</Button> */}
             <Modal isOpen={this.state.modal} toggle={() => { this.setState({ modal: !this.state.modal }) }} className={'one'}>
               <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
               <ModalBody>
                 {this.state.modalTex}
             </ModalBody>
               <ModalFooter>
-                <Button color="primary" onClick={() => { this.setState({ modal: !this.state.modal }) }}>Do Something</Button>{' '}
-                <Button color="secondary" onClick={() => { this.setState({ modal: !this.state.modal }) }}>Cancel</Button>
+                {/* <Button color="primary" onClick={() => { this.setState({ modal: !this.state.modal }) }}>New Game</Button>{' '} */}
+                <Button color="secondary" onClick={() => { this.setState({ modal: !this.state.modal }) }}>Close</Button>
               </ModalFooter>
             </Modal>
           </div>
