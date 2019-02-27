@@ -75,7 +75,7 @@ class Game extends Component {
     })
   }
 
-  
+
   render() {
     return (
       <div id="main-game-container">
@@ -107,15 +107,18 @@ class Game extends Component {
 
           <button id="btn-new-game" onClick={this.newGame}>New Game</button>
           <hr />
-          <p>By: Edmundo Rubio</p>
+          <span>By: Edmundo Rubio</span>
 
+          <i class="fab fa-github-square fa-lg ml-2"></i>
+          <i class="fas fa-folder-open fa-lg ml-2"></i>
+          
           <div>
             {/* <Button color="danger" onClick={() => { this.setState({ modal: !this.state.modal  }) }}>{'Open Modal'}</Button> */}
             <Modal isOpen={this.state.modal} toggle={() => { this.setState({ modal: !this.state.modal }) }} className={'one'}>
-              <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+              <ModalHeader toggle={this.toggle}>Tic-Tac-Toe</ModalHeader>
               <ModalBody>
                 {this.state.modalTex}
-            </ModalBody>
+              </ModalBody>
               <ModalFooter>
                 {/* <Button color="primary" onClick={() => { this.setState({ modal: !this.state.modal }) }}>New Game</Button>{' '} */}
                 <Button color="secondary" onClick={() => { this.setState({ modal: !this.state.modal }) }}>Close</Button>
